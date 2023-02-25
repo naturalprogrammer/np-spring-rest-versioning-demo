@@ -10,7 +10,11 @@ public class SignupController {
     public record SignupRequestDto(String email, String password) {}
     public record UserResourceDto(String email) {}
 
-    @PostMapping("/users")
+    @PostMapping(
+            value = "/users",
+            consumes = "application/json",
+            produces = "application/json"
+    )
     public UserResourceDto signup(@RequestBody SignupRequestDto requestDto) {
         return new UserResourceDto(requestDto.email());
     }
