@@ -12,8 +12,8 @@ public class SignupController {
 
     @PostMapping(
             value = "/users",
-            consumes = "application/json",
-            produces = "application/json"
+            consumes = "application/vnd.com.example.signup-request+json; version=1.0",
+            produces = "application/vnd.com.example.user+json; version=1.0"
     )
     public UserResourceDto signup(@RequestBody SignupRequestDto requestDto) {
         return new UserResourceDto(requestDto.email());

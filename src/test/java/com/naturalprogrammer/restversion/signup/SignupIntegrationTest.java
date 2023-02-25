@@ -22,7 +22,7 @@ class SignupIntegrationTest {
         var email = "mail@example.com";
 
         mvc.perform(post("/users")
-                        .contentType("application/json")
+                        .contentType("application/vnd.com.example.signup-request+json; version=1.0")
                         .content("""
                                    {
                                         "email" : "%s",
@@ -30,7 +30,7 @@ class SignupIntegrationTest {
                                    }     
                                 """.formatted(email)))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
+                .andExpect(content().contentType("application/vnd.com.example.user+json; version=1.0"))
                 .andExpect(jsonPath("email").value(email));
     }
 }
