@@ -23,7 +23,7 @@ class SignupIntegrationTest {
         var email = "mail@example.com";
 
         mvc.perform(post("/users")
-                        .contentType("application/vnd.com.example.signup-request+json; version=1.0")
+                        .contentType("application/vnd.com.example.signup-request.v1+json")
                         .content("""
                                    {
                                         "email" : "%s",
@@ -31,7 +31,7 @@ class SignupIntegrationTest {
                                    }     
                                 """.formatted(email)))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/vnd.com.example.user+json; version=1.0"))
+                .andExpect(content().contentType("application/vnd.com.example.user.v1+json"))
                 .andExpect(jsonPath("email").value(email))
                 .andExpect(jsonPath("mobileNumber").doesNotExist());
     }
@@ -42,7 +42,7 @@ class SignupIntegrationTest {
         var mobileNumber = "9999999999";
 
         mvc.perform(post("/users")
-                        .contentType("application/vnd.com.example.signup-request+json; version=2.0")
+                        .contentType("application/vnd.com.example.signup-request.v2+json")
                         .content("""
                                    {
                                         "mobileNumber" : "%s",
@@ -50,7 +50,7 @@ class SignupIntegrationTest {
                                    }     
                                 """.formatted(mobileNumber)))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/vnd.com.example.user+json; version=1.0"))
+                .andExpect(content().contentType("application/vnd.com.example.user.v1+json"))
                 .andExpect(jsonPath("email").value(mobileNumber + "@example.com"))
                 .andExpect(jsonPath("mobileNumber").value(mobileNumber));
     }

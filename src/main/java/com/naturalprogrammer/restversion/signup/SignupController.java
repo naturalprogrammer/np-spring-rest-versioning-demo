@@ -11,15 +11,15 @@ public class SignupController {
 
     @Deprecated
     public record SignupRequestDto(String email, String password) {
-        public static final String MEDIA_TYPE = "application/vnd.com.example.signup-request+json; version=1.0";
+        public static final String MEDIA_TYPE = "application/vnd.com.example.signup-request.v1+json";
     }
 
     public record SignupRequestDtoV2(String mobileNumber, String password) {
-        public static final String MEDIA_TYPE = "application/vnd.com.example.signup-request+json; version=2.0";
+        public static final String MEDIA_TYPE = "application/vnd.com.example.signup-request.v2+json";
     }
 
     public record UserResourceDto(String email, String mobileNumber) {
-        public static final String MEDIA_TYPE = "application/vnd.com.example.user+json; version=1.0";
+        public static final String MEDIA_TYPE = "application/vnd.com.example.user.v1+json";
     }
 
     @Deprecated
