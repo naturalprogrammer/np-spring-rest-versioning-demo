@@ -17,7 +17,8 @@ class SignupIntegrationTest {
     private MockMvc mvc;
 
     @Test
-    void should_signup() throws Exception {
+    @Deprecated
+    void should_signup_via_email() throws Exception {
 
         var email = "mail@example.com";
 
@@ -31,6 +32,26 @@ class SignupIntegrationTest {
                                 """.formatted(email)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/vnd.com.example.user+json; version=1.0"))
-                .andExpect(jsonPath("email").value(email));
+                .andExpect(jsonPath("email").value(email))
+                .andExpect(jsonPath("mobileNumber").doesNotExist());
+    }
+
+    @Test
+    void should_signup_via_mobile() throws Exception {
+
+        var mobileNumber = "9999999999";
+
+        mvc.perform(post("/users")
+                        .contentType("application/vnd.com.example.signup-request+json; version=2.0")
+                        .content("""
+                                   {
+                                        "mobileNumber" : "%s",
+                                        "password" : "secret"
+                                   }     
+                                """.formatted(mobileNumber)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/vnd.com.example.user+json; version=1.0"))
+                .andExpect(jsonPath("email").value(mobileNumber + "@example.com"))
+                .andExpect(jsonPath("mobileNumber").value(mobileNumber));
     }
 }
